@@ -1,0 +1,1 @@
+print("track incomes and expenses")
