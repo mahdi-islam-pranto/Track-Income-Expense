@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 from datetime import datetime
-
+from data_input import get_date, get_amount, get_category, get_description
 
 class CSV:
     #csv file name
@@ -39,12 +39,18 @@ class CSV:
             writer.writerow(new_data)
             print("New Data added successfully")
 
+# function to add all user data to csv file
+    def add():
+        CSV.initialize_csv()
+        date = get_date("Enter date (DD-MM-YYYY) or leave blank to use today's date: ", allow_date=True)
+        amount = get_amount()
+        category = get_category()
+        description = get_description()
+        CSV.add_data_to_csv(date,amount,category,description)
 
 
-# create csv file
-CSV.initialize_csv()
+# # create csv file
+# CSV.initialize_csv()
 
 # add data to csv file
-CSV.add_data_to_csv("8-1-2024", 200, "income", "bonus")
-
-    
+CSV.add()

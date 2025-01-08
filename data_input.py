@@ -14,7 +14,9 @@ def get_date(user_date, allow_date = False):
     # if user does not enter date 
     if allow_date and not date_str:
         # return today's date
-        return datetime.today().strftime()
+        return datetime.today().strftime(
+            "%d-%m-%Y"
+        )
     
     # if user enters date
     try:
@@ -51,11 +53,13 @@ def get_category():
 # function to get the description from user
 def get_description():
     description = input("Enter description: ")
+    
     if not description:
         print("Description cannot be empty.")
         return get_description()
+    return description
     
 
 
-get_description()
+# get_description()
 
