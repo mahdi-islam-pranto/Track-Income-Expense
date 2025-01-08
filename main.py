@@ -45,4 +45,6 @@ class CSV:
 CSV.initialize_csv()
 
 # add data to csv file
-CSV.add_data_to_csv("8-1-2024", 100, "income", "bonus")
+CSV.add_data_to_csv("8-1-2024", 200, "income", "bonus")
+
+    
