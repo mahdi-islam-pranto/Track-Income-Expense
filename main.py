@@ -39,6 +39,7 @@ class CSV:
             writer.writerow(new_data)
             print("New Data added successfully")
 
+
 # function to add all user data to csv file
     def add():
         CSV.initialize_csv()
@@ -49,8 +50,27 @@ class CSV:
         CSV.add_data_to_csv(date,amount,category,description)
 
 
+# function to get all the transactions data by date from the csv file
+    @classmethod
+    def get_transactions_by_date(cls, start_date, end_date):
+        # read csv file
+        df = pd.read_csv(CSV.csv_file)
+        # filter data by date
+        df['date'] = pd.to_datetime(df['date'], format="%d-%m-%Y")
+        mask = (df['date'] >= start_date) & (df['date'] <= end_date)
+        filtered_data = df.loc[mask]
+
+        if filtered_data.empty:
+            print("No data found for the given date range")
+        else:
+            print(f'Transactions from {start_date} to {end_date}')
+            print(filtered_data.to_string(index=False))
+        
+
+
 # # create csv file
 # CSV.initialize_csv()
 
 # add data to csv file
-CSV.add()
+# CSV.add()
+CSV.get_transactions_by_date("01-01-2025", "01-02-2026")
