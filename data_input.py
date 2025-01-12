@@ -60,6 +60,34 @@ def get_description():
     return description
     
 
+# get transactions data by date
+def get_transaction_data():
+    start_date = input("Enter start date (DD-MM-YYYY): ")
+
+    try:
+        # valid date format
+        start_date = datetime.strptime(start_date, "%d-%m-%Y")
+        # return valid_date.strftime("%d-%m-%Y")
+    
+    except ValueError:
+        # if user enters invalid date
+        print("Invalid date format. Please enter date in DD-MM-YYYY format.")
+        return get_transaction_data()
+        
+    end_date = input("Enter end date (DD-MM-YYYY): ")
+
+    try:
+        # valid date format
+        end_date = datetime.strptime(end_date, "%d-%m-%Y")
+        # return valid_date.strftime("%d-%m-%Y")
+    
+    except ValueError:
+        # if user enters invalid date
+        print("Invalid date format. Please enter date in DD-MM-YYYY format.")
+        return get_transaction_data()
+    
+    return start_date.strftime("%d-%m-%Y"), end_date.strftime("%d-%m-%Y")
 
 # get_description()
+# get_transaction_data()
 

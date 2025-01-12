@@ -1,7 +1,7 @@
 import pandas as pd
 import csv
 from datetime import datetime
-from data_input import get_date, get_amount, get_category, get_description
+from data_input import get_date, get_amount, get_category, get_description , get_transaction_data
 
 class CSV:
     #csv file name
@@ -63,14 +63,48 @@ class CSV:
         if filtered_data.empty:
             print("No data found for the given date range")
         else:
-            print(f'Transactions from {start_date} to {end_date}')
-            print(filtered_data.to_string(index=False))
-        
+            print(f'All Transactions Data from {start_date} to {end_date}')
+            print(filtered_data.to_string(index=False)+"\n")
+            # get total income, expense and net savings
+            print("Summary:")
+            total_income = filtered_data[filtered_data["category"] == "income"]["amount"].sum()
+            total_expense = filtered_data[filtered_data["category"] == "expense"]["amount"].sum()
+            print(f"Total Income: {total_income}")
+            print(f"Total Expense: {total_expense}")
+            net_savings = total_income - total_expense
+            print(f"Net Savings: {net_savings:.2f}")
 
+# function to start the code where user will be asked to enter data or get data by date range
+    def main():
+        while True:
+            print("\n1. Welcome to Your Finance Tracker App")
+            print("2. Enter 1 to add new transaction data")
+            print("3. Enter 2 to get transaction data and summary by date range")
+            print("Enter 3 to exit")
+            user_choice = input("Enter your choice: (1 or 2 or 3): ")
+            if user_choice == '1':
+                CSV.add()
+            elif user_choice == '2':
+                start_date = get_date("Enter start date (DD-MM-YYYY): ")
+                end_date = get_date("Enter end date (DD-MM-YYYY): ")
+                CSV.get_transactions_by_date(start_date, end_date)
+            elif user_choice == '3':
+                print("Thank you for using the app. Goodbye!")
+                break
+            else:
+                print("Invalid choice. Please enter 1, 2 or 3.")
+            
+        
 
 # # create csv file
 # CSV.initialize_csv()
 
 # add data to csv file
 # CSV.add()
-CSV.get_transactions_by_date("01-01-2025", "01-02-2026")
+
+# get transactions data by date
+# CSV.get_transactions_by_date("01-01-2025", "01-02-2026")
+
+# start the code
+if __name__ == "__main__":
+    CSV.main()
